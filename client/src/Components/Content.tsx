@@ -7,6 +7,7 @@ import { useTodoStore } from "../store/todoStore";
 const Content = () => {
 
     const {getTodo,todos}=useTodoStore();
+    const num;
 
     return (
         <div className="" >
