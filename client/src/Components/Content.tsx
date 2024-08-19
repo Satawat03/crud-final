@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import Item from "./Item";
 import { useTodoStore } from "../store/todoStore";
 import { Link } from "react-router-dom";
-import { useTodoStore } from "../store/todoStore";
 
 const Content = () => {
-
-    const {getTodo,todos}=useTodoStore();
-    const num;
+    const { getTodo, todos } = useTodoStore();
+    
+    useEffect(() => {
+        getTodo();
+    }, [])
 
     return (
         <div className="" >
-            <h1 className="text-center mb-4">todo <Link to="/add"><span className="float-right border border-white p-1 rounded-xl">Add todo</span></Link></h1>
-            <div className="grid grid-cols-3 gap-10">
+            <Link to="/add"><button className="btn btn-accent mb-4 ">Add</button></Link>
+            
+
+            <div className="grid grid-cols-3 gap-10 ">
+
+                {todos.map((todo, idx) => (
+                    <Item  key={idx} id={todo.id} label={todo.label} STATUS={todo.STATUS} description={todo.description}   />
+                    
+                ))}
 
             </div>
 

@@ -4,27 +4,50 @@ import axios from "axios";
 
 
 type TodoStore = {
-    todos : Todo[]
+    todos: Todo[]
 
-    getTodo : () => void
-    addTodo :() => void
-    editTodo : () => void
-    deleteTodo : () => void
+    getTodo: () => void
+    addTodo: (data : Todo) => void
+    editTodo: (data : Todo) => void
+    deleteTodo: (id: any) => void
 }
 export const useTodoStore = create<TodoStore>()((set) => ({
-    todos : [],
-    getTodo : async() => {
-        const result = await axios.get("http://localhost:3000/user")
+    todos: [],
+    getTodo: async () => {
+        try {
+            const result = await axios.get("http://localhost:3000/user")
+            set({ todos: result.data })
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    addTodo: async (data) => {
+        try {
+            await axios.post("http://localhost:3000/user",data)
+            const result = await axios.get("http://localhost:3000/user")
+            set({ todos: result.data })
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    editTodo: async (data) => {
+        try {
+            await axios.put("http://localhost:3000/user",data)
+            const result = await axios.get("http://localhost:3000/user")
+            set({ todos: result.data })
+        } catch (err) {
+            console.log(err)
+        }
 
-        set({todos : result.data})
     },
-    addTodo : async() => {
-        
-    },
-    editTodo : async() => {
-        
-    },
-    deleteTodo : async() => {
-        
+    deleteTodo: async (data) => {
+        try {
+            await axios.delete("http://localhost:3000/user",{data:data})
+            const result = await axios.get("http://localhost:3000/user")
+            set({ todos: result.data })
+        } catch (err) {
+            console.log(err)
+        }
+
     }
 }))

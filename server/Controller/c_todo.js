@@ -4,14 +4,14 @@ exports.getData = async(req,res) => {
     res.send(result);
 }
 exports.addData = async(req,res) => {
-    const {label,STATUS,discrition} = req.body
-    const data = await pool.query("INSERT INTO `todos`(`label`, `STATUS`, `discrition`) VALUES (?,?,?)" ,[label,STATUS,discrition] );
+    const {label,STATUS,description} = req.body
+    const data = await pool.query("INSERT INTO `todos`(`label`, `STATUS`, `description`) VALUES (?,?,?)" ,[label,STATUS,description] );
     res.send(data)
 
 }
 exports.editData = async(req,res) => {
-    const {label,STATUS,discrition,id} = req.body
-    const data =await pool.query("UPDATE `todos` SET `label`=?,`STATUS`=?,`discrition`=? WHERE id=?" ,[label,STATUS,discrition,id] );
+    const {label,STATUS,description,id} = req.body
+    const data =await pool.query("UPDATE `todos` SET `label`=?,`STATUS`=?,`description`=? WHERE id=?" ,[label,STATUS,description,id] );
     res.send(data)
 
 }

@@ -1,14 +1,19 @@
-import {useState} from 'react'
-import { Link } from 'react-router-dom'
+
+import { Link, useNavigate } from 'react-router-dom'
 import {Todo} from "../tpyes/todo"
 import { useForm } from 'react-hook-form'
+import { useTodoStore } from '../store/todoStore'
 
 
 const Add = () => {
 
   const{register,handleSubmit} = useForm<Todo>()
+  const{addTodo}= useTodoStore();
+  const navigate=useNavigate();
+
   const submitData = (data : Todo) => {
-    console.log(data)
+    addTodo(data)
+    navigate("/")
   }
   
   return (
@@ -32,8 +37,6 @@ const Add = () => {
 
           <Link to="/"><button className="btn">Cancel</button>
           </Link>
-
-
         </div>
 
       </form>
